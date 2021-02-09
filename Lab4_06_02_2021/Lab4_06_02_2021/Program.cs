@@ -11,26 +11,41 @@ if (arr != null && arr.Length > 0)
 {
     object[] arrEven = new object[GetCountEvenNumber(arr)];
     object[] arrUneven = new object[GetCountUnevenNumber(arr)];
-    foreach (var i in arrEven)
-    {
-        Console.Write(i + " ");
-    }
 
-    Console.WriteLine();
     FillSubArray(arr, arrEven, true);
+    PrintArr(arrEven);
     FillSubArray(arr, arrUneven, false);
-    foreach (var i in arrEven)
+    PrintArr(arrUneven);
+    ReplaceArrElements(arrEven);
+    PrintArr(arrEven);
+    ReplaceArrElements(arrUneven);
+    PrintArr(arrUneven);
+    Console.WriteLine();
+    if (GetCountLetter(arrEven) > GetCountLetter(arrUneven))
+    {
+        Console.WriteLine($"An even array has more uppercase letters.");
+        Console.WriteLine($"Count in an even array: {GetCountLetter(arrEven)};");
+        Console.WriteLine($"Count in an uneven array: {GetCountLetter(arrUneven)};");
+    }
+    else
+    {
+        Console.WriteLine($"An uneven array has more uppercase letters.");
+        Console.WriteLine($"Count in an even array: {GetCountLetter(arrEven)};");
+        Console.WriteLine($"Count in an uneven array: {GetCountLetter(arrUneven)};");
+    }
+
+    PrintArr(arrEven);
+    PrintArr(arrUneven);
+}
+
+void PrintArr(object[] arr)
+{
+    foreach (var i in arr)
     {
         Console.Write(i + " ");
     }
 
     Console.WriteLine();
-    ReplaceArrElements(arrEven);
-    ReplaceArrElements(arrUneven);
-    foreach (var i in arrEven)
-    {
-        Console.Write(i + " ");
-    }
 }
 
 int[] InitArray()
@@ -94,6 +109,7 @@ void FillSubArray(int[] mainArr, object[] subArr, bool fillEvenElements)
                 if (subArr[j] == null)
                 {
                     subArr[j] = mainArr[i];
+                    break;
                 }
             }
         }
@@ -104,6 +120,7 @@ void FillSubArray(int[] mainArr, object[] subArr, bool fillEvenElements)
                 if (subArr[j] == null)
                 {
                     subArr[j] = mainArr[i];
+                    break;
                 }
             }
         }
@@ -150,5 +167,25 @@ void ReplaceArrElements(object[] arr)
     for (int i = 0; i < arr.Length; i++)
     {
         arr[i] = alphabet[arr[i].ToString()];
+        string letter = arr[i].ToString();
+        if (letter == "a" || letter == "e" || letter == "i" || letter == "d" || letter == "h" || letter == "j")
+        {
+            arr[i] = arr[i].ToString().ToUpper();
+        }
     }
+}
+
+int GetCountLetter(object[] arr)
+{
+    int count = 0;
+    for (int i = 0; i < arr.Length; i++)
+    {
+        string letter = arr[i].ToString();
+        if (letter == "A" || letter == "E" || letter == "I" || letter == "D" || letter == "H" || letter == "J")
+        {
+            count++;
+        }
+    }
+
+    return count;
 }
